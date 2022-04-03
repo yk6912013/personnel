@@ -70,7 +70,6 @@ export default {
         createtime: '',
         updatetime: '',
         logs: {
-
         }
       },
       loading: false,

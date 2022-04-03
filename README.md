@@ -1,6 +1,6 @@
 # personnel_vue
 
-> A Vue.js project
+人事管理系统
 
 ## Build Setup
 
