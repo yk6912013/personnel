@@ -34,7 +34,6 @@
 <script>
 // import {postKeyValueRequest} from '../utils/api';
 // 在main.js里以插件形似全局导入
-
 export default {
   data () {
     return {
@@ -75,7 +74,6 @@ export default {
 
   },
   methods: {
-
     getCode () {
       this.getRequest("/auth/code").then(resp => {
           if(resp){
@@ -96,7 +94,6 @@ export default {
           ).then(data => {
             this.loading = false;
             if (data) {
-
               //方法将 JavaScript 的json对象转换为字符串。
               //将得到数存储在SessionStorage里
               window.sessionStorage.setItem("user", JSON.stringify(data.obj))
@@ -171,7 +168,7 @@ export default {
   width: 33%;
   display: inline-block;
   height: 38px;
-  float: right;
+  /* float: right; */
 }
 .login-code img {
   cursor: pointer;
