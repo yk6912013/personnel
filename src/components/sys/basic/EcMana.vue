@@ -39,7 +39,7 @@
                     style="width:100%;">
                 <el-table-column type="selection" width="55" align="center">
                 </el-table-column>
-                <el-table-column prop="id" label="ID" align="center" sortable width="55" >
+                <el-table-column prop="id" label="ID" align="center" sortable width="70" >
                 </el-table-column>
                 <el-table-column prop="rwardsAndPunishments.rpsystem" align="center" label="奖罚类别" width="150">
                 </el-table-column>

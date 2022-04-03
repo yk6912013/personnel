@@ -91,10 +91,8 @@ export default {
   },
   created () {
     this.getCode()
-
   },
   methods: {
-
     getCode () {
       this.getRequest("/auth/code").then(resp => {
           if(resp){
@@ -134,7 +132,9 @@ export default {
         }
       });
     },
-    register () {}
+    register () {
+      // this.$router.replace('/register')
+    }
   }
 }
 </script>

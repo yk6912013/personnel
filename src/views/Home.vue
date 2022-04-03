@@ -19,7 +19,7 @@
               <i><img :src="user.userface"></i>
             </span>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item @click="$router.push('/Person')">个人信息</el-dropdown-item>
+              <el-dropdown-item command="person">个人信息</el-dropdown-item>
               <el-dropdown-item @click="$router.push('/AlterPassword')">修改密码</el-dropdown-item>
               <el-dropdown-item command="logout" divided>注销登录</el-dropdown-item>
             </el-dropdown-menu>
@@ -79,7 +79,6 @@
 import Main from "./main";
 import pageChar from "./chat/pageChat"
 export default {
-
   name: "Home",
   data () {
     return {
@@ -139,13 +138,14 @@ export default {
           // 清除缓存
           this.$store.commit('initRoutes', []);
           this.$router.replace("/");
-
         }).catch(() => {
           this.$message({
             type: 'info',
             message: '已取消'
           });
         });
+      } else if (cmd == 'person') {
+        this.$router.push('/Person')
       }
     },
   },

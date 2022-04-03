@@ -40,6 +40,7 @@ Vue.use(VueQuillEditor);
 Vue.use(VCharts)
 // Vue.use(Schart)
 Vue.use(ElementUI);
+
 //类似于过滤器
 router.beforeEach((to, from, next) => {
     if (to.name == '/') {

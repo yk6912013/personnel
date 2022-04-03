@@ -36,7 +36,7 @@ export default new Router({
             },
             {
               path:'/person',
-              name:'聊天页',
+              name:'个人信息',
               component:Person,
               hidden:true
             },
