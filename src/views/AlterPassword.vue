@@ -12,7 +12,6 @@
           <el-input v-model="form.confirmPass" show-password></el-input>
         </el-form-item>
       </el-form>
-
       <div style="text-align: center">
         <el-button type="primary" @click="changePsss">保存</el-button>
       </div>
@@ -50,7 +49,7 @@ export default {
       this.$refs['form'].validate((valid) => {
         if (valid) {
           if (!this.form.newPass === this.form.confirmPass) {
-            this.$message.error('2次输入新密码必须一致')
+            this.$message.error('两次输入新密码必须一致')
             return
           }
           let user = JSON.parse(sessionStorage.getItem("user"))
