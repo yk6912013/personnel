@@ -1,41 +1,30 @@
-### 人事管理系统前端代码
+# personnel_vue
 
-## 开发环境
-```bash
-PS D:\node\code\HROS-UI> node -v
-v12.13.1
-PS D:\node\code\HROS-UI> npm -v
-6.12.1
-PS D:\node\code\HROS-UI>
-```
-## 依赖包
-```bash
+> A Vue.js project
+
+## Build Setup
+
+``` bash
+# install dependencies
 npm install
 
-```
-### 报错解决
-sass 依赖包不匹配问题
-```
-npm install sass-loader@7.0.3
-npm install node-sass@4.12.0
-```
-### Compiles and hot-reloads for development
-```bash
-npm run serve
-```
+# serve with hot reload at localhost:8080
+npm run dev
 
-
-### Compiles and minifies for production
-```
+# build for production with minification
 npm run build
+
+# build for production and view the bundle analyzer report
+npm run build --report
+
+# run unit tests
+npm run unit
+
+# run e2e tests
+npm run e2e
+
+# run all tests
+npm test
 ```
 
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
-
-     
+For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
