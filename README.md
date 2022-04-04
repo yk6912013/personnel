@@ -1,6 +1,6 @@
 # personnel_vue
 
-人事管理系统
+企业人事管理系统
 
 ## Build Setup
 
