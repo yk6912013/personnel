@@ -148,8 +148,15 @@
                 </el-select>
               </div>
               <el-button slot="reference"
-                         type="primary"
-                         size="mini">修改账套</el-button>
+                         :type="scope.row.salary == null ? 'success': 'primary'"
+                         size="mini">
+                         <span v-if="scope.row.salary == null">
+                           设置账套
+                         </span>
+                         <span v-else>
+                           修改账套
+                         </span>
+                         </el-button>
             </el-popover>
             <el-button style="margin-left:10px" :disabled="scope.row.salary == null ? true:false" type="danger" size="mini" @click="handleDelete(scope.row)">
               解除账套

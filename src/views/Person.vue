@@ -3,8 +3,8 @@
     <div style="float: left;width: 30%">
       <el-card style="width: 100%; margin: 10px" shadow="hover">
         <el-form ref="form" :model="form" label-width="80px">
-          <el-form-item style="text-align: center" label-width="0">
-            <el-upload
+          <!-- <el-form-item style="text-align: center" label-width="0"> -->
+            <!-- <el-upload
                 class="avatar-uploader"
                 action="http://localhost:9527/files/upload"
                 :show-file-list="false"
@@ -12,8 +12,12 @@
             >
               <img v-if="form.avatar" :src="form.avatar" class="avatar">
               <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-            </el-upload>
-          </el-form-item>
+            </el-upload> -->
+          <!-- <img v-if="form.avatar" :src="userface" class="avatar"> -->
+          <!-- </el-form-item> -->
+            <div class="block">
+              <el-avatar :size="100" :src="form.userface"></el-avatar>
+            </div>
           <el-form-item label="用户名">
             <el-input v-model="form.username" disabled></el-input>
           </el-form-item>
@@ -40,7 +44,7 @@
     </div>
     <div style="float: left;width: 60%; margin-left: 20px;" shadow="hover">
       <el-card style="width: 100%; margin: 10px">
-        <el-form ref="form" :model="form" label-width="80px" style="padding: 150px 110px 150px 110px">
+        <el-form ref="form" :model="form" label-width="80px" style="padding: 137px 110px 137px 110px">
           <el-form-item label="旧密码">
             <el-input type="password" show-password v-model="oldpwd"></el-input>
           </el-form-item>
@@ -72,9 +76,13 @@ export default {
       age: 22,
       sex: '男',
 
+      sizeList: ["large", "medium", "small"],
+
       oldpwd: '123456',
       newpwd: '123123',
-      rnewpwd: '123123'
+      rnewpwd: '123123',
+
+      userface: "http://img.duoziwang.com/2021/03/1623076205104459.jpg"
 
     }
   },
@@ -134,5 +142,9 @@ export default {
   width: 178px;
   height: 178px;
   display: block;
+}
+.block {
+ margin-bottom: 20px;
+ margin-left: 40%;
 }
 </style>

@@ -130,6 +130,7 @@
     <div class="bottom-style">
       <el-button type="success"
                  style="margin-top: 10px"
+                 icon="el-icon-edit-outline"
                  :disabled="multipleSelection.length==0"
                  @click="addMany">批量培训
       </el-button>

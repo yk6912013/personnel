@@ -85,7 +85,7 @@
                   所属部门:
                   <el-popover placement="right"
                               title="请选择部门"
-                              width="200"
+                              width="100%"
                               trigger="manual"
                               v-model="popVisible1">
                     <el-tree default-expand-all
@@ -111,7 +111,6 @@
                 </el-col>
                 <el-col :span="5"
                         :offset="4">
-
                   <el-button icon="el-icon-search"
                              type="primary"
                              @click="initEmps('advanced')">搜索</el-button>
@@ -602,6 +601,7 @@
       <el-button type="danger"
                  style="margin-top: 10px"
                  :disabled="multipleSelection.length==0"
+                 icon="el-icon-delete"
                  @click="deleteMany">批量删除
       </el-button>
       <el-pagination style="margin-top: 10px"
@@ -736,6 +736,9 @@ export default {
     this.initPositions();
   },
   methods: {
+    // deleteRow(index, rows) {
+    //     rows.splice(index, 1);
+    //   },
     quxiao(){
       this.dialogVisible = false;
        this.$notify.info({

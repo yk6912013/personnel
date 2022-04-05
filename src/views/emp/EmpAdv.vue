@@ -325,8 +325,7 @@ export default {
     initEmps () {
       this.loading = true;
       let url = '/employee/advanced/?page=' + this.page + '&size=' + this.size;
-  if (this.searchValue != null) {
-     
+      if (this.searchValue != null) {
       }
       if (this.searchValue.politicid) {
         url += '&politicid=' + this.searchValue.politicid;
@@ -375,7 +374,7 @@ export default {
           this.emps = resp.data;
           /*总记录数*/
           this.total = resp.total;
-          this.searchValue = [];
+          // this.searchValue = [];
           this.keyword = '';
         }
       });
