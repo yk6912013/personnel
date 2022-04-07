@@ -71,11 +71,9 @@ export default {
     return {
       form: {
       },
-
       oldpwd: '123456',
       newpwd: '123123',
       rnewpwd: '123123',
-
     }
   },
   created() {
