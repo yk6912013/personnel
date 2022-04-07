@@ -25,13 +25,13 @@
             <el-input v-model="form.phone"></el-input>
           </el-form-item>
           <el-form-item label="昵称">
-            <el-input v-model="nickName"></el-input>
+            <el-input v-model="form.nickName"></el-input>
           </el-form-item>
           <el-form-item label="年龄">
-            <el-input v-model="age"></el-input>
+            <el-input v-model="form.age"></el-input>
           </el-form-item>
           <el-form-item label="性别">
-            <el-input v-model="sex"></el-input>
+            <el-input v-model="form.sex"></el-input>
           </el-form-item>
           <el-form-item label="地址">
             <el-input v-model="form.address"></el-input>
@@ -72,17 +72,9 @@ export default {
       form: {
       },
 
-      nickName: '小李白',
-      age: 22,
-      sex: '男',
-
-      sizeList: ["large", "medium", "small"],
-
       oldpwd: '123456',
       newpwd: '123123',
       rnewpwd: '123123',
-
-      userface: "http://img.duoziwang.com/2021/03/1623076205104459.jpg"
 
     }
   },
@@ -94,7 +86,7 @@ export default {
     handleAvatarSuccess(res) {
       this.form.avatar = res.data
       this.$message.success("上传成功")
-      // this.update()
+      this.update()
     },
     update() {
       request.put("/user", this.form).then(res => {

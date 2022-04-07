@@ -93,7 +93,7 @@
                direction="ltr"
                custom-class="drawerstyleleft"
                ref="drawer"
-               size="40%">
+               size="50%">
       <div class="center-right-infinite-list">
         <el-scrollbar style="height: 100%;width:100%">
           <!-- <div v-html="mainnotice.mainbody"/>  -->
@@ -111,7 +111,7 @@
                direction="rtl"
                custom-class="drawerstyleright"
                ref="drawer"
-               size="40%"
+               size="50%"
                @close="updatemainnotice">
       <div class="center-right-infinite-list">
         <el-scrollbar style="height: 100%;width:100%">
@@ -303,6 +303,7 @@ export default {
 .center-right-infinite-list {
   width: 750px;
   height: 740px;
+  margin-left: 50px;
   /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
   /* border-bottom: 0ch; */
 }
