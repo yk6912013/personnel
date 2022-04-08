@@ -12,6 +12,17 @@
                 v-loading.fullscreen.lock="loading"
                 element-loading-spinner="fa fa-spinner fa-pulse fa-3x fa-fw"
                 stripe>
+        <!-- 无数据展示 -->
+        <template slot="empty">
+          <div class="empty">
+            <div>
+              <img src="@/assets/images/No-Date.png" width="240px" height="240px" alt>
+            </div>
+            <div>
+              <span>暂无数据</span>
+            </div>
+          </div>
+        </template>
         <el-table-column type="selection"
                          width="55"
                          align="center"></el-table-column>
@@ -443,7 +454,8 @@ export default {
     deleteSalary (data) {
       this.$confirm('此操作将删除【' + data.name + '】账套，是否继续？', '提示', {
         cancelButtonText: '取消',
-        confirmButtonText: '确定'
+        confirmButtonText: '确定',
+        type: 'warning'
       }).then(() => {
         this.deleteRequest("/salary/sob/" + data.id).then(resp => {
           if (resp) {

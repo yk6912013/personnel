@@ -31,6 +31,17 @@
                     :customClass="loadingstyle"
                     style="width: 100%;font-size: 14px"
                     @selection-change="handleSelectionChange">
+            <!-- 无数据展示 -->
+            <template slot="empty">
+              <div class="empty">
+                <div>
+                  <img src="@/assets/images/No-Date.png" width="240px" height="240px" alt>
+                </div>
+                <div>
+                  <span>暂无数据</span>
+                </div>
+              </div>
+            </template>
             <el-table-column prop="name"
                              align="center"
                              label="姓名"
@@ -103,6 +114,9 @@
       </el-scrollbar>
     </div>
     <div class="bottom-style">
+      <div>
+        <el-button @click="refershMany" type="success" class="el-icon-refresh" style="margin-top: 10px"> 刷新</el-button>
+      </div>
       <el-pagination style="margin-top: 10px"
                      background
                      @current-change="currentChange"
@@ -223,9 +237,11 @@ export default {
     this.initPositions();
   },
   methods: {
-
+    // 刷新
+    refershMany() {
+      this.initEmps()
+    },
     deletepet (data) {
-
       this.$confirm('此操作将永久删除【' + data.employeetrainList.traincontent + '】, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
@@ -371,6 +387,16 @@ export default {
 
 .content-style {
   margin-top: 10px;
+}
+
+/* 空数据 */
+.empty {
+  padding: 170px;
+}
+.el-table__empty-text {
+  line-height: 0px;
+  width: 100%;
+  color: #909399;
 }
 
 .content-style .el-scrollbar__wrap {

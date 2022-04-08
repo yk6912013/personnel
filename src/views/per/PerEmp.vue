@@ -11,11 +11,7 @@
                   @keydown.enter.native="initEmps"
                   :disabled="showAdvanceSearchView"></el-input>
         <el-select v-model="defstatus" @change="changestatus" placeholder="状态" style="width: 130px; margin-right: 10px">
-            <el-option v-for="item in status"
-                        :key="item.id"
-                        :label="item.name"
-                        :value="item.id">
-            </el-option>
+          <el-option v-for="item in status" :key="item.id" :label="item.name" :value="item.id"/>
         </el-select>
         <el-button icon="el-icon-search"
                    type="primary"
@@ -147,6 +143,17 @@
                     element-loading-spinner="fa fa-spinner fa-pulse fa-3x fa-fw"
                     style="width: 100%; height: 100%; font-size: 14px"
                     @selection-change="handleSelectionChange">
+            <!-- 无数据展示 -->
+            <template slot="empty">
+              <div class="empty">
+                <div>
+                  <img src="@/assets/images/No-Date.png" width="240px" height="240px" alt>
+                </div>
+                <div>
+                  <span>暂无数据</span>
+                </div>
+              </div>
+            </template>
             <el-table-column fixed
                              prop="name"
                              align="center"
@@ -290,6 +297,9 @@
       </el-scrollbar>
     </div>
     <div class="bottom-style">
+      <div>
+        <el-button @click="refershMany" type="success" class="el-icon-refresh" style="margin-top: 10px"> 刷新</el-button>
+      </div>
       <el-pagination style="margin-top: 10px"
                      background
                      @current-change="currentChange"
@@ -299,7 +309,6 @@
                      :page-sizes="[20,30,50,,100]">
       </el-pagination>
     </div>
-    <!--添加弹出框-->
   </div>
 </template>
 
@@ -394,6 +403,10 @@ export default {
     this.initPositions();
   },
   methods: {
+    // 刷新
+    refershMany() {
+      this.initEmps()
+    },
     handleSelectionChange (val) {
       this.multipleSelection = val;
     },
@@ -613,6 +626,16 @@ export default {
 
 .content-style {
   margin-top: 10px;
+}
+
+/* 空数据 */
+.empty {
+  padding: 170px;
+}
+.el-table__empty-text {
+  line-height: 0px;
+  width: 100%;
+  color: #909399;
 }
 
 .content-style .el-scrollbar__wrap {

@@ -47,7 +47,6 @@
         <el-drawer size="50%" direction="btt" custom-class="drawerstyle" :modal="false"
                    :visible.sync="table">
             <ve-tree :data="chartData" :settings="chartSettings"></ve-tree>
-           
         </el-drawer>
     </div>
 </template>

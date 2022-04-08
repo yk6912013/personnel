@@ -28,6 +28,17 @@
                 :customClass="loadingstyle"
                 style="width: 100%;font-size: 14px"
                 @selection-change="handleSelectionChange">
+        <!-- 无数据展示 -->
+        <template slot="empty">
+          <div class="empty">
+            <div>
+              <img src="@/assets/images/No-Date.png" width="240px" height="240px" alt>
+            </div>
+            <div>
+              <span>暂无数据</span>
+            </div>
+          </div>
+        </template>        
         <el-table-column type="selection"
                          align="center"
                          width="55"></el-table-column>
@@ -166,6 +177,9 @@
       </el-table>
     </div>
     <div class="bottom-style">
+      <div>
+        <el-button @click="refershMany" type="success" class="el-icon-refresh" style="margin-top: 10px"> 刷新</el-button>
+      </div>
       <el-pagination style="margin-top: 10px"
                      background
                      @current-change="currentChange"
@@ -175,7 +189,6 @@
                      :page-sizes="[20,30,50,100]">
       </el-pagination>
     </div>
-
   </div>
 </template>
 
@@ -201,6 +214,9 @@ export default {
     this.initSalaries();
   },
   methods: {
+    refershMany() {
+      this.initEmps()
+    },
     /*分页事件处理*/
     sizeChange (currentSize) {
       this.size = currentSize;

@@ -26,7 +26,7 @@
              class="el-icon-lock"></i>
         </el-input>
       </el-form-item>
-      <el-button type="primary" style="width: 100%" @click="loginSubmit">注册</el-button>
+      <el-button type="primary" style="width: 100%;height: 50px;" @click="loginSubmit">注册</el-button>
     </el-form>
   </div>
 </template>
@@ -57,7 +57,6 @@ export default {
           { required: true, message: '请输入密码', trigger: blur() },
           { min: 3, max: 15, message: '长度在 3 到 15 个字符', trigger: 'blur' }
         ],
-        code: [{ required: true, trigger: 'change', message: '验证码不能为空' }]
       }
     }
   },
@@ -70,7 +69,7 @@ export default {
     }
   },
   created () {
-    this.getCode()
+    // this.getCode()
   },
   methods: {
     getCode () {
@@ -102,8 +101,8 @@ export default {
           })
         } else {
           this.$notify.info({
-            title: '系 统 讯 息',
-            message: '输入框信息不完整哦!',
+            title: '系统信息',
+            message: '输入框信息不完整!',
             showClose: false,
             offset: 100,
             duration: 5000,
@@ -125,55 +124,59 @@ export default {
 
 .login {
   background-size: 100% 100%;
-    width: 100%;
-    height: 100%;
-    position: fixed;
-   background-image: url(../assets/images/timg.jpg); 
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  overflow: hidden;
+  background-image: url(../assets/images/login-bg.jpg); 
 }
 .logContainer {
-  /* //圆角边框*/
-  border-radius: 15px;
-  /*背景裁剪在背景边框内部*/
-  background-clip: padding-box;
-  /*//外边距*/
-  margin: 250px auto;
+  background: rgb(255, 255, 255);
+  /* 圆角边框 */
+  border-radius: 5px;
+  /* height: 500px; */
+  /* 背景裁剪在背景边框内部 */
+  /* background-clip: padding-box; */
+  /* 外边距 */
+  margin: 350px auto;
   /*//宽度*/
-  width: 350px;
-  /*//内边距*/
-  padding: 35px 35px 15px 35px;
-  /*//背景色*/
-  background: transparent;
-  /* background-image: radial-gradient(#ffffff, transparent); */
-  /*// 边框样式*/
+  width: 320px;
+  /* 内边距 */
+  padding: 15px 35px 15px 35px;
+  /* 背景色 */
+  /* background: transparent;
+  background-image: radial-gradient(#ffffff, transparent); */
+   /* 边框样式 */
   border: 1px solid #eaeaea;
-  /*// 边框阴影*/
-  box-shadow: 0 0 25px #cac6c6;
+  /* 边框阴影 */
+  /* box-shadow: 0 0 25px #cac6c6; */
 }
 .logtitle {
-  margin: 0px auto 20px auto;
+  width: 100%;
+  line-height: 70px;
   text-align: center;
-  color: #505458;
-  font-family: 站酷庆科黄油体;
+  font-size: 22px;
+  color: rgb(0, 0, 0);
+  border-bottom: 1px solid #ddd;
+  /* font-family: 站酷庆科黄油体; */
 }
 .loginRen {
   text-align: center;
   margin: 0px 0px 35px 0px;
 }
-.fontclass {
-  font-size: 35px;
-  font-family: 站酷庆科黄油体;
-}
+/* .fontclass { */
+  /* font-size: 35px; */
+  /* font-family: 站酷庆科黄油体; */
+/* } */
 .login-code {
   width: 33%;
   display: inline-block;
   height: 38px;
+  margin-left: 12px;
   /* float: right; */
 }
 .login-code img {
   cursor: pointer;
   vertical-align: middle;
 }
-/* .re {
-  text-emphasis-color: #ffffff;
-} */
 </style>

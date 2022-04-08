@@ -28,6 +28,7 @@
                   政治面貌:
                   <el-select v-model="searchValue.politicid"
                              placeholder="政治面貌"
+                             clearable
                              style="width: 130px;">
                     <el-option v-for="item in politicsstatus"
                                :key="item.id"
@@ -40,6 +41,7 @@
                   民族:
                   <el-select v-model="searchValue.nationid"
                              placeholder="民族"
+                             clearable
                              style="width: 130px;">
                     <el-option v-for="item in nations"
                                :key="item.id"
@@ -52,6 +54,7 @@
                   职位:
                   <el-select v-model="searchValue.posid"
                              placeholder="职位"
+                             clearable
                              style="width: 130px;">
                     <el-option v-for="item in positions"
                                :key="item.id"
@@ -64,6 +67,7 @@
                   职称:
                   <el-select v-model="searchValue.joblevelid"
                              placeholder="职称"
+                             clearable
                              style="width: 130px;">
                     <el-option v-for="item in joblevels"
                                :key="item.id"
@@ -152,6 +156,7 @@
                    @click="showAddEmpView">
           添加用户
         </el-button>
+        <el-button @click="refershMany" type="success" class="el-icon-refresh" style="margin-left: 10px"> 刷新</el-button>
         <!--add 弹窗-->
         <el-dialog :title="title"
                    :visible.sync="dialogVisible"
@@ -450,6 +455,17 @@
                     :customClass="loadingstyle"
                     style="width: 100%; height: 100%; font-size: 14px"
                     @selection-change="handleSelectionChange">
+            <!-- 无数据展示 -->
+            <template slot="empty">
+              <div class="empty">
+                <div>
+                  <img src="@/assets/images/No-Date.png" width="240px" height="240px" alt>
+                </div>
+                <div>
+                  <span>暂无数据</span>
+                </div>
+              </div>
+            </template>
             <el-table-column type="selection"
                              width="55">
             </el-table-column>
@@ -613,12 +629,12 @@
                      :page-sizes="[20,30,50,,100]">
       </el-pagination>
     </div>
-    <!--添加弹出框-->
   </div>
 </template>
 
 <script>
 export default {
+  inject: ['reload'],
   name: "EmpBasic",
   data () {
     return {
@@ -736,6 +752,9 @@ export default {
     this.initPositions();
   },
   methods: {
+    refershMany() {
+      this.reload()
+    },
     // deleteRow(index, rows) {
     //     rows.splice(index, 1);
     //   },
@@ -1028,15 +1047,15 @@ export default {
     initEmps (type) {
       this.loading = true;
       let url = '/employee/basic/?page=' + this.page + '&size=' + this.size;
-      if (type && type == 'advanced') {
-        this.$notify.success({
-          title: '搜索信息',
-          message: '搜索员工中...',
-          showClose: false,
-          offset: 100,
-          duration: 2000,
-          customClass: 'fontclass'
-        });
+      // if (type && type == 'advanced') {
+      //   this.$notify.success({
+      //     title: '搜索信息',
+      //     message: '搜索员工中...',
+      //     showClose: false,
+      //     offset: 100,
+      //     duration: 2000,
+      //     customClass: 'fontclass'
+      //   });
         if (this.searchValue.politicid) {
           url += '&politicid=' + this.searchValue.politicid;
         }
@@ -1058,7 +1077,8 @@ export default {
         if (this.searchValue.beginDateScope) {
           url += '&beginDateScope=' + this.searchValue.beginDateScope;
         }
-      } else if (this.keyword) {
+      // } 
+      if (this.keyword) {
         this.$notify.success({
           title: '搜索信息',
           message: '搜索员工中...',
@@ -1084,7 +1104,7 @@ export default {
           this.emps = resp.data;
           /*总记录数*/
           this.total = resp.total;
-          this.searchValue = [];
+          // this.searchValue = [];
           this.keyword = '';
         }
       });
@@ -1101,7 +1121,15 @@ export default {
   /*分布方式*/
   justify-content: space-between;
 }
-
+/* 空数据 */
+.empty {
+  padding: 170px;
+}
+.el-table__empty-text {
+  line-height: 0px;
+  width: 100%;
+  color: #909399;
+}
 .content-style {
   margin-top: 10px;
 }

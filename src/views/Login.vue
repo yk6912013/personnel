@@ -46,7 +46,7 @@
         记住我
       </el-checkbox> -->
       <el-button type="success" style="width: 100%; height: 50px;" @click="loginSubmit">登录</el-button>
-      <el-form-item><el-button type="text" @click="$router.push('/register')">前往注册 >> </el-button></el-form-item>
+      <!-- <el-form-item><el-button type="text" @click="$router.push('/register')">前往注册 >> </el-button></el-form-item> -->
     </el-form>
   </div>
 </template>

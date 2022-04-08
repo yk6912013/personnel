@@ -1,6 +1,5 @@
 <template>
     <div>
-        
         <template>
             <el-tabs v-model="activeName" @tab-click="handleClick">
                 <el-tab-pane label="部门管理" name="depmana"><DepMana></DepMana></el-tab-pane>

@@ -34,6 +34,17 @@
                     style="width:100%"
                     @selection-change="handleSelectionChange"
             >
+                <!-- 无数据展示 -->
+                <template slot="empty">
+                    <div class="empty">
+                        <div>
+                        <img src="@/assets/images/No-Date.png" width="240px" height="240px" alt>
+                        </div>
+                        <div>
+                        <span>暂无数据</span>
+                        </div>
+                    </div>
+                </template>
                 <el-table-column type="selection" width="55" align="center">
                 </el-table-column>
                 <el-table-column prop="id" label="ID" sortable align="center" width="70">

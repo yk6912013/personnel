@@ -38,7 +38,7 @@
           </el-form-item>
         </el-form>
         <div style="text-align: center">
-          <el-button type="primary" @click="update">更新基本信息</el-button>
+          <el-button type="primary" @click="update" :loading="loading">更新基本信息</el-button>
         </div>
       </el-card>
     </div>
@@ -56,7 +56,7 @@
           </el-form-item>
         </el-form>
         <div style="text-align: center">
-          <el-button type="primary" @click="update">保存</el-button>
+          <el-button type="primary" @click="update" disabled>保存</el-button>
         </div>
       </el-card>
     </div>
@@ -71,6 +71,7 @@ export default {
     return {
       form: {
       },
+      loading: false,
       oldpwd: '123456',
       newpwd: '123123',
       rnewpwd: '123123',
@@ -81,29 +82,24 @@ export default {
     this.form = JSON.parse(str)
   },
   methods: {
-    handleAvatarSuccess(res) {
-      this.form.avatar = res.data
-      this.$message.success("上传成功")
-      this.update()
-    },
+    // handleAvatarSuccess(res) {
+    //   this.form.avatar = res.data
+    //   this.$message.success("上传成功")
+    //   this.update()
+    // },
     update() {
-      request.put("/user", this.form).then(res => {
-        console.log(res)
-        if (res.code === '0') {
-          this.$message({
-            type: "success",
-            message: "更新成功"
-          })
+      this.loading = true
+      setTimeout(() => {  
+        this.putRequest("/system/hr/", this.form).then(res => {
+        console.log(res)  
+        if (res.object == null) {
           sessionStorage.setItem("user", JSON.stringify(this.form))
           // 触发Layout更新用户信息
           this.$emit("userInfo")
-        } else {
-          this.$message({
-            type: "error",
-            message: res.msg
-          })
-        }
-      })
+          this.loading = false
+        } 
+        })
+      },2000)
     }
   }
 }

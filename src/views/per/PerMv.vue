@@ -87,6 +87,17 @@
                     element-loading-spinner="fa fa-spinner fa-pulse fa-3x fa-fw"
                     style="width: 100%;font-size: 14px"
                     @selection-change="handleSelectionChange">
+            <!-- 无数据展示 -->
+            <template slot="empty">
+              <div class="empty">
+                <div>
+                  <img src="@/assets/images/No-Date.png" width="240px" height="240px" alt>
+                </div>
+                <div>
+                  <span>暂无数据</span>
+                </div>
+              </div>
+            </template>
             <el-table-column type="expand">
               <template slot-scope="props">
                 <el-table :data="props.row.employeeremoveList"
@@ -183,6 +194,9 @@
       </el-scrollbar>
     </div>
     <div class="bottom-style">
+      <div>
+        <el-button @click="refershMany" type="success" class="el-icon-refresh" style="margin-top: 10px"> 刷新</el-button>
+      </div>
       <el-pagination style="margin-top: 10px"
                      background
                      @current-change="currentChange"
@@ -279,31 +293,34 @@ export default {
     this.initPositions();
   },
   methods: {
-
-tableRowClassName({row, rowIndex}) {
+    // 刷新
+    refershMany() {
+      this.initEmps()
+    },
+    tableRowClassName({row, rowIndex}) {
         if (rowIndex === 1) {
           return 'warning-row';
         } else if (rowIndex === 3) {
           return 'success-row';
         }
         return '';
-      },
+    },
     handleSelectionChange (val) {
       this.multipleSelection = val;
     },
     /**/
-    searvhViewHandleNodeClick (data) {
-      this.inputDepName = data.name;
-      this.searchValue.departmentid = data.id;
-      this.popVisible1 = !this.popVisible1
-    },
-
-    filert (ids) {
-      return this.joblevels.filter(item => {
-        if (item.id === ids) {
-              return item.name;
-        }      });
-    },
+    // searvhViewHandleNodeClick (data) {
+    //   this.inputDepName = data.name;
+    //   this.searchValue.departmentid = data.id;
+    //   this.popVisible1 = !this.popVisible1
+    // },
+    // filert (ids) {
+    //   return this.joblevels.filter(item => {
+    //     if (item.id === ids) {
+    //       return item.name;
+    //     }      
+    //   });
+    // },
     emptyEmp () {
       this.emp = {
         id: '',
@@ -366,9 +383,7 @@ tableRowClassName({row, rowIndex}) {
           }
         });
       }
-
     },
-
     handleNodeClick (data) {
       this.inputDepName = data.name;
       this.emp.departmentid = data.id;
@@ -390,7 +405,6 @@ tableRowClassName({row, rowIndex}) {
         }
       })
     },
-
     /*添加员工数据预加载*/
     initData () {
       /*如果缓存了在缓存里取*/
@@ -482,7 +496,15 @@ tableRowClassName({row, rowIndex}) {
   /*分布方式*/
   justify-content: space-between;
 }
-
+/* 空数据 */
+.empty {
+  padding: 170px;
+}
+.el-table__empty-text {
+  line-height: 0px;
+  width: 100%;
+  color: #909399;
+}
 .content-style {
   margin-top: 10px;
 }

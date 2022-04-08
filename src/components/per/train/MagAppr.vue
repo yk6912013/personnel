@@ -29,6 +29,17 @@
                     element-loading-spinner="fa fa-spinner fa-pulse fa-3x fa-fw"
                     style="width: 100%;font-size: 14px"
                     @selection-change="handleSelectionChange">
+            <!-- 无数据展示 -->
+            <template slot="empty">
+              <div class="empty">
+                <div>
+                  <img src="@/assets/images/No-Date.png" width="240px" height="240px" alt>
+                </div>
+                <div>
+                  <span>暂无数据</span>
+                </div>
+              </div>
+            </template>
             <el-table-column prop="name"
                              align="center"
                              label="姓名"
@@ -95,6 +106,9 @@
       </el-scrollbar>
     </div>
     <div class="bottom-style">
+      <div>
+        <el-button @click="refershMany" type="success" class="el-icon-refresh" style="margin-top: 10px"> 刷新</el-button>
+      </div>
       <el-pagination style="margin-top: 10px"
                      background
                      @current-change="currentChange"
@@ -103,7 +117,6 @@
                      :total="total"
                      :page-sizes="[20,30,50,100]">
       </el-pagination>
-
     </div>
     <!--添加弹出框-->
     <el-dialog title="考评修改"
@@ -150,8 +163,7 @@
       <span slot="footer"
             class="dialog-footer">
         <el-button @click="dialogVisible = false">取 消</el-button>
-        <el-button type="primary"
-                   @click="updateept">修 改</el-button>
+        <el-button type="primary" @click="updateept">修 改</el-button>
       </span>
     </el-dialog>
   </div>
@@ -160,9 +172,7 @@
 <script>
 export default {
   name: "Magtrain",
-
   data () {
-
     return {
       data: [],
       value: [],
@@ -202,9 +212,11 @@ export default {
     this.initPositions();
   },
   methods: {
-
+    // 刷新
+    refershMany() {
+      this.initEmps()
+    },
     deletepet (data) {
-
       this.$confirm('此操作将永久删除【' + data.appraise.appcontent + '】, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',

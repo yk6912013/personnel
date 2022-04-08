@@ -10,10 +10,12 @@
                   style="width: 250px;margin-right: 10px"
                   v-model="keyword"
                   @keydown.enter.native="initEmps"
-                  :disabled="showAdvanceSearchView"></el-input>
+                  :disabled="showAdvanceSearchView">
+        </el-input>
         <el-select v-model="searchValue.politicid"
                    style="width: 130px;margin-right: 10px"
-                   placeholder="政治面貌">
+                   placeholder="政治面貌"
+                   clearable>
           <el-option v-for="item in politicsstatus"
                      :key="item.id"
                      :label="item.name"
@@ -22,6 +24,7 @@
         </el-select>
         <el-select v-model="searchValue.nationid"
                    placeholder="民族"
+                   clearable
                    style="width: 130px;margin-right: 10px">
           <el-option v-for="item in nations"
                      :key="item.id"
@@ -31,6 +34,7 @@
         </el-select>
         <el-select v-model="searchValue.posid"
                    placeholder="职位"
+                   clearable
                    style="width: 130px;margin-right: 10px">
           <el-option v-for="item in positions"
                      :key="item.id"
@@ -40,6 +44,7 @@
         </el-select>
         <el-select v-model="searchValue.joblevelid"
                    placeholder="职称"
+                   clearable
                    style="width: 130px;margin-right: 10px">
           <el-option v-for="item in joblevels"
                      :key="item.id"
@@ -50,15 +55,13 @@
         <el-date-picker v-model="searchValue.beginDateScope"
                         type="daterange"
                         unlink-panels
+                        clearable
                         value-format="yyyy-MM-dd"
                         range-separator="至"
                         start-placeholder="入职开始日期"
                         end-placeholder="入职结束日期">
         </el-date-picker>
-        <el-button icon="el-icon-search"
-                   type="primary"
-                   style="margin-left:10px"
-                   @click="initEmps('advanced')">搜索</el-button>
+        <el-button icon="el-icon-search" type="primary" style="margin-left:10px" @click="initEmps('advanced')">搜索</el-button>
       </div>
       <div style="display: flex;justify-content: flex-end">
       </div>
@@ -75,6 +78,17 @@
                     element-loading-spinner="fa fa-spinner fa-pulse fa-3x fa-fw"
                     style="width: 100%; height: 800px;font-size: 14px"
                     @selection-change="handleSelectionChange">
+            <!-- 无数据展示 -->
+            <template slot="empty">
+              <div class="empty">
+                <div>
+                  <img src="@/assets/images/No-Date.png" width="240px" height="240px" alt>
+                </div>
+                <div>
+                  <span>暂无数据</span>
+                </div>
+              </div>
+            </template>
             <el-table-column type="selection"
                              width="55">
             </el-table-column>
@@ -134,6 +148,9 @@
       </el-scrollbar>
     </div>
     <div class="bottom-style">
+      <div>
+        <el-button @click="refershMany" type="success" class="el-icon-refresh" style="margin-top: 10px"> 刷新</el-button>
+      </div>
       <el-pagination style="margin-top: 10px"
                      background
                      @current-change="currentChange"
@@ -142,7 +159,6 @@
                      :total="total"
                      :page-sizes="[20,30,50,100]">
       </el-pagination>
-
     </div>
   </div>
 </template>
@@ -150,6 +166,7 @@
 <script>
 export default {
   name: "EmpAdv",
+  inject: ['reload'],
   data () {
     return {
       multipleSelection: [],
@@ -187,12 +204,10 @@ export default {
         label: ''
       }],
       inputDepName: '所属部门',
-     
       defaultProps: {
         children: 'children',
         label: 'name'
       },
-   
     }
   },
   mounted () {
@@ -201,40 +216,23 @@ export default {
     this.initPositions();
   },
   methods: {
-
+    // 列表颜色
     // changeCellStyle (row, column, rowIndex, columnIndex) {
     // //列的label的名称
-    //   if (row.column.label === "培训内容") {
+    //   if (row.column.label == "培训内容" || row.column.label == "培训开始时间" || row.column.label == "培训结束时间") {
     //     return 'color: red' //修改的样式
-    //   } else {
-    //     return ''
+    //   } else if (row.column.label === "考评内容" || row.column.label == "考评时间"){
+    //     return 'color: blue'
+    //   } else if (row.column.label === "账套名称" || row.column.label == "基本工资"){
+    //     return 'color: #7904FF'
     //   }
     // },
+    // 刷新
+    refershMany() {
+      this.reload()
+    },
     handleSelectionChange (val) {
       this.multipleSelection = val;
-    },
-    /**/
-    searvhViewHandleNodeClick (data) {
-      this.inputDepName = data.name;
-      this.searchValue.departmentid = data.id;
-      this.popVisible1 = !this.popVisible1
-    },
-    exportData () {
-      window.open('/employee/basic/export', '_parent');
-    },
-   
-    showEditEmpView (data) {
-      this.initPositions();
-      this.title = '编辑员工信息';
-      this.emp = data;
-      this.inputDepName = data.department.name;
-      this.dialogVisible = true;
-    },
-   
-    handleNodeClick (data) {
-      this.inputDepName = data.name;
-      this.emp.departmentid = data.id;
-      this.popVisible = !this.popVisible
     },
     /*部门初始化*/
     showDepView () {
@@ -315,18 +313,12 @@ export default {
       this.page = currentPage;
       this.initEmps();
     },
-    showAddEmpView () {
-      this.emptyEmp();
-      this.title = '添加员工';
-      this.getMaxWordID();
-      this.dialogVisible = true;
-    },
     /*初始化搜索处理*/
-    initEmps () {
+    initEmps (type) {
       this.loading = true;
       let url = '/employee/advanced/?page=' + this.page + '&size=' + this.size;
-      if (this.searchValue != null) {
-      }
+      // if (this.searchValue != null) {
+      // }
       if (this.searchValue.politicid) {
         url += '&politicid=' + this.searchValue.politicid;
       }
@@ -360,14 +352,14 @@ export default {
         url += "&name=" + this.keyword;
       }
       /*数据 返回*/
-       this.$notify.success({
-                        title: '系统信息',
-                        message: '高级信息加载中...',
-                        showClose: false,
-                        offset: 100,
-                        duration: 4000,
-                        customClass: 'fontclass'
-                    });
+      this.$notify.success({
+        title: '系统信息',
+        message: '高级信息加载中...',
+        showClose: false,
+        offset: 100,
+        duration: 2000,
+        customClass: 'fontclass'
+      });
       this.getRequest(url).then(resp => {
         this.loading = false;
         if (resp) {
@@ -390,13 +382,21 @@ export default {
   /*分布方式*/
   justify-content: space-between;
 }
-
 .content-style {
   margin-top: 10px;
 }
-
 .content-style .el-scrollbar__wrap {
   overflow: scroll;
+}
+
+/* 空数据 */
+.empty {
+  padding: 170px;
+}
+.el-table__empty-text {
+  line-height: 0px;
+  width: 100%;
+  color: #909399;
 }
 
 .bottom-style {

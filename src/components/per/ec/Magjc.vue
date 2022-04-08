@@ -30,6 +30,17 @@
                     :customClass="loadingstyle"
                     style="width: 100%;font-size: 14px"
                     @selection-change="handleSelectionChange">   
+            <!-- 无数据展示 -->
+            <template slot="empty">
+              <div class="empty">
+                <div>
+                  <img src="@/assets/images/No-Date.png" width="240px" height="240px" alt>
+                </div>
+                <div>
+                  <span>暂无数据</span>
+                </div>
+              </div>
+            </template>
             <el-table-column prop="workid"
                              label="工号"
                              align="center"
@@ -87,6 +98,9 @@
       </el-scrollbar>
     </div>
     <div class="bottom-style">
+      <div>
+        <el-button @click="refershMany" type="success" class="el-icon-refresh" style="margin-top: 10px"> 刷新</el-button>
+      </div>
       <el-pagination style="margin-top: 10px"
                      background
                      @current-change="currentChange"
@@ -105,9 +119,7 @@
 <script>
 export default {
   name: "Magjc",
-
   data () {
-
     return {
       data: [],
       value: [],
@@ -146,6 +158,10 @@ export default {
     this.initPositions();
   },
   methods: {
+    // 刷新
+    refershMany() {
+      this.initEmps()
+    },
     magrp (data) {
       this.$notify({
         title: '奖惩详情',
@@ -163,7 +179,6 @@ export default {
       });
 
     },
-
     updatarp (data) {
 // alert(JSON.stringify(data));
       this.eid = data.eid;

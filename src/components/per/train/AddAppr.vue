@@ -30,6 +30,17 @@
                     :customClass="loadingstyle"
                     style="width: 100%;font-size: 14px"
                     @selection-change="handleSelectionChange">
+            <!-- 无数据展示 -->
+            <template slot="empty">
+              <div class="empty">
+                <div>
+                  <img src="@/assets/images/No-Date.png" width="240px" height="240px" alt>
+                </div>
+                <div>
+                  <span>暂无数据</span>
+                </div>
+              </div>
+            </template>
             <el-table-column type="selection"
                              width="55">
             </el-table-column>
@@ -222,7 +233,7 @@ export default {
       total: 0,
       page: 1,
       keyword: '',
-      size: 13,
+      size: 20,
       defaultProps: {
         children: 'children',
         label: 'name'
@@ -438,6 +449,16 @@ export default {
 
 .content-style {
   margin-top: 10px;
+}
+
+/* 空数据 */
+.empty {
+  padding: 170px;
+}
+.el-table__empty-text {
+  line-height: 0px;
+  width: 100%;
+  color: #909399;
 }
 
 .content-style .el-scrollbar__wrap {

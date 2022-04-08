@@ -12,8 +12,18 @@
                     :customClass="loadingstyle"
                     style="width: 100%;font-size: 14px"
                     @selection-change="handleSelectionChange">
-            <el-table-column type="selection"
-                             width="55">
+            <!-- 无数据展示 -->
+            <template slot="empty">
+              <div class="empty">
+                <div>
+                  <img src="@/assets/images/No-Date.png" width="240px" height="240px" alt>
+                </div>
+                <div>
+                  <span>暂无数据</span>
+                </div>
+              </div>
+            </template>
+            <el-table-column type="selection" width="55">
             </el-table-column>
             <!-- <el-table-column type="expand">
               <template slot-scope="props">
@@ -138,6 +148,9 @@
       </el-scrollbar>
     </div>
     <div class="bottom-style">
+      <div>
+        <el-button @click="refershMany" type="success" class="el-icon-refresh" style="margin-top: 10px"> 刷新</el-button>
+      </div>
       <el-pagination style="margin-top: 10px"
                      background
                      @current-change="currentChange"
@@ -146,9 +159,7 @@
                      :total="total"
                      :page-sizes="[20,30,50,100]">
       </el-pagination>
-
     </div>
-
   </div>
 </template>
 <script>
@@ -208,7 +219,9 @@ export default {
     this.initPositions();
   },
   methods: {
-
+    refershMany () {
+      this.initEmps()
+    },
     addMany () {
       this.dialogVisible = true;
     },
@@ -359,6 +372,16 @@ export default {
 
 .fontclasssys {
   font-family: 站酷庆科黄油体;
+}
+
+/* 空数据 */
+.empty {
+  padding: 170px;
+}
+.el-table__empty-text {
+  line-height: 0px;
+  width: 100%;
+  color: #909399;
 }
 
 .loadingstyle {

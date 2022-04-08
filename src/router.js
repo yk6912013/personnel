@@ -17,8 +17,8 @@ export default new Router({
           hidden:true
         },
         // {
-        //   path:'/',
-        //   name:'登录页',
+        //   path:'/register',
+        //   name:'注册页',
         //   component:Register,
         //   hidden:true
         // },
